@@ -1,14 +1,1224 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cool Tanks - Next Generation Tank Warfare</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TANK ARENA - Legendary Tank Combat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Audiowide&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f1419;
+            --secondary: #1a1f2e;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #8f39ff;
+            --accent-gold: #ffa500;
+            --accent-red: #ff0055;
+            --text-light: #e0e0e0;
+            --glow: 0 0 20px rgba(0, 212, 255, 0.5);
+            --glow-purple: 0 0 20px rgba(143, 57, 255, 0.5);
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(143, 57, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* NAVBAR */
+        .gaming-navbar {
+            background: rgba(15, 20, 25, 0.95);
+            border-bottom: 3px solid var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .nav-link-gaming {
+            color: var(--text-light) !important;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            margin: 0 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-link-gaming::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transition: width 0.3s ease;
+            box-shadow: var(--glow);
+        }
+
+        .nav-link-gaming:hover {
+            color: var(--accent-cyan) !important;
+        }
+
+        .nav-link-gaming:hover::after {
+            width: 100%;
+        }
+
+        /* HERO SECTION */
+        .hero-gaming {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 120px 0 100px;
+            border-bottom: 2px solid var(--accent-cyan);
+        }
+
+        .hero-gaming::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,212,255,0.1)" stroke-width="1"/></pattern></defs><rect width="1200" height="600" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-gold), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            text-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.3));
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-gaming {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border: 2px solid var(--accent-cyan);
+            color: #000;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .btn-gaming:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px var(--glow), 0 10px 30px rgba(0, 212, 255, 0.4);
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+        }
+
+        .btn-gaming-secondary {
+            background: transparent;
+            border: 2px solid var(--accent-purple);
+            color: var(--accent-purple);
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--glow-purple);
+            font-family: 'Orbitron', sans-serif;
+            margin-left: 1rem;
+        }
+
+        .btn-gaming-secondary:hover {
+            background: var(--accent-purple);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px var(--glow-purple);
+        }
+
+        /* STATS SECTION */
+        .stats-gaming {
+            background: rgba(26, 31, 46, 0.8);
+            padding: 60px 0;
+            border-top: 2px solid var(--accent-cyan);
+            border-bottom: 2px solid var(--accent-purple);
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 30px;
+            background: rgba(15, 20, 25, 0.6);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 0;
+            margin: 1rem 0;
+            box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.1), 0 0 20px rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+            box-shadow: inset 0 0 20px rgba(255, 165, 0, 0.1), 0 0 30px rgba(255, 165, 0, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            text-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+        }
+
+        /* TANK CARDS - GAMING STYLE */
+        .tanks-section {
+            padding: 80px 0;
+            background: var(--primary);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            top: 50%;
+        }
+
+        .section-title::before {
+            left: 5%;
+        }
+
+        .section-title::after {
+            right: 5%;
+        }
+
+        .tank-card-gaming {
+            background: linear-gradient(135deg, rgba(26, 31, 46, 0.9), rgba(15, 20, 25, 0.9));
+            border: 2px solid var(--accent-cyan);
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2), inset 0 0 20px rgba(0, 212, 255, 0.05);
+        }
+
+        .tank-card-gaming::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .tank-card-gaming:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.5), inset 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .tank-card-gaming:hover::before {
+            opacity: 1;
+        }
+
+        .tank-image-wrapper {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            background: var(--secondary);
+        }
+
+        .tank-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .tank-card-gaming:hover .tank-image-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .tank-tier {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+            color: #000;
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+            z-index: 2;
+        }
+
+        .tank-country {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(143, 57, 255, 0.9);
+            color: white;
+            padding: 8px 16px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px var(--glow-purple);
+            z-index: 2;
+        }
+
+        .tank-info {
+            padding: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tank-name {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .tank-type {
+            font-size: 0.9rem;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .tank-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-bar {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--accent-cyan);
+            padding: 8px;
+            border-radius: 0;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+        }
+
+        .stat-bar-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .stat-bar-fill {
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-gold));
+            border-radius: 0;
+            box-shadow: 0 0 10px var(--glow);
+        }
+
+        .tank-description {
+            color: #aaa;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.3);
+            padding-top: 1rem;
+        }
+
+        /* TECH TREE STYLE */
+        .tech-tree-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-top: 2px solid var(--accent-purple);
+        }
+
+        .tier-container {
+            margin: 40px 0;
+        }
+
+        .tier-label {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--glow-purple);
+            border-left: 4px solid var(--accent-purple);
+            padding-left: 15px;
+        }
+
+        .tech-tree-item {
+            background: rgba(15, 20, 25, 0.8);
+            border: 2px solid var(--accent-purple);
+            padding: 20px;
+            border-radius: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tech-tree-item:hover {
+            border-color: var(--accent-cyan);
+            transform: translateX(10px);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .tree-item-icon {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            width: 60px;
+            text-align: center;
+        }
+
+        .tree-item-info {
+            flex: 1;
+        }
+
+        .tree-item-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+        }
+
+        .tree-item-desc {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* GALLERY SECTION */
+        .gallery-section {
+            padding: 80px 0;
+            background: var(--primary);
+            border-top: 2px solid var(--accent-cyan);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border: 2px solid var(--accent-cyan);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--secondary);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay i {
+            color: var(--accent-cyan);
+            font-size: 3rem;
+            text-shadow: 0 0 20px var(--glow);
+        }
+
+        /* CONTACT SECTION */
+        .contact-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            border-top: 2px solid var(--accent-gold);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-control-gaming {
+            background: rgba(15, 20, 25, 0.8);
+            border: 2px solid var(--accent-cyan);
+            color: var(--text-light);
+            padding: 15px;
+            border-radius: 0;
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-control-gaming:focus {
+            background: rgba(15, 20, 25, 0.9);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.3), inset 0 0 10px rgba(255, 165, 0, 0.1);
+            color: var(--text-light);
+        }
+
+        .form-control-gaming::placeholder {
+            color: #666;
+        }
+
+        /* FOOTER */
+        .gaming-footer {
+            background: var(--primary);
+            border-top: 3px solid var(--accent-purple);
+            padding: 50px 0 20px;
+            color: var(--text-light);
+        }
+
+        .footer-col {
+            margin-bottom: 30px;
+        }
+
+        .footer-col h5 {
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .footer-link {
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-cyan);
+            transform: translateX(5px);
+            text-shadow: 0 0 10px var(--glow);
+        }
+
+        .social-icons a {
+            color: var(--accent-purple);
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-cyan);
+            transform: translateY(-3px);
+            text-shadow: 0 0 15px var(--glow);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(0, 212, 255, 0.8); }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .btn-gaming-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+                display: block;
+                width: 100%;
+            }
+
+            .tank-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-content">
+        <!-- NAVBAR -->
+        <nav class="gaming-navbar">
+            <div class="container-lg">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="brand-logo">
+                        <i class="fas fa-shield-alt"></i> TANK ARENA
+                    </div>
+                    <div class="d-none d-md-flex">
+                        <a href="#home" class="nav-link-gaming">Arena</a>
+                        <a href="#tanks" class="nav-link-gaming">Tanks</a>
+                        <a href="#tech-tree" class="nav-link-gaming">Tech Tree</a>
+                        <a href="#gallery" class="nav-link-gaming">Gallery</a>
+                        <a href="#contact" class="nav-link-gaming">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <section class="hero-gaming" id="home">
+            <div class="container-lg">
+                <div class="hero-content">
+                    <h1 class="hero-title">TANK ARENA</h1>
+                    <p class="hero-subtitle">⚔️ Legendary Tank Combat Experience ⚔️</p>
+                    <p style="font-size: 1.2rem; color: #aaa; margin-bottom: 2.5rem;">
+                        Explore the most iconic tanks from history. Master the battlefield.
+                    </p>
+                    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+                        <button class="btn-gaming" onclick="document.getElementById('tanks').scrollIntoView({behavior: 'smooth'})">
+                            <i class="fas fa-play"></i> ENTER ARENA
+                        </button>
+                        <button class="btn-gaming-secondary" onclick="document.getElementById('tech-tree').scrollIntoView({behavior: 'smooth'})">
+                            <i class="fas fa-map"></i> TECH TREE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS SECTION -->
+        <section class="stats-gaming">
+            <div class="container-lg">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-box">
+                            <div class="stat-number" data-target="200">0</div>
+                            <div class="stat-label"><i class="fas fa-tank"></i> Total Tanks</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-box">
+                            <div class="stat-number" data-target="15">0</div>
+                            <div class="stat-label"><i class="fas fa-flag"></i> Nations</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-box">
+                            <div class="stat-number" data-target="35">0</div>
+                            <div class="stat-label"><i class="fas fa-layer-group"></i> Tiers</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-box">
+                            <div class="stat-number" data-target="50000">0</div>
+                            <div class="stat-label"><i class="fas fa-users"></i> Players</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURED TANKS -->
+        <section class="tanks-section" id="tanks">
+            <div class="container-lg">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Arsenal</h2>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Tank 1 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tank-card-gaming">
+                            <div class="tank-image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1570303008042-e39dd90a6fb5?w=500&h=400&fit=crop" alt="Tiger I">
+                                <div class="tank-country">🇩🇪 Germany</div>
+                                <div class="tank-tier">TIER VI</div>
+                            </div>
+                            <div class="tank-info">
+                                <div class="tank-name">Tiger I</div>
+                                <div class="tank-type">Heavy Tank • 1942</div>
+                                <div class="tank-stats">
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Firepower</div>
+                                        <div class="stat-bar-fill" style="width: 95%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Armor</div>
+                                        <div class="stat-bar-fill" style="width: 85%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Speed</div>
+                                        <div class="stat-bar-fill" style="width: 50%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Accuracy</div>
+                                        <div class="stat-bar-fill" style="width: 80%;"></div>
+                                    </div>
+                                </div>
+                                <div class="tank-description">
+                                    One of the most feared tanks of WWII. Dominated with its 88mm gun and superior armor.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tank 2 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tank-card-gaming">
+                            <div class="tank-image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1569163139394-de4798aa62b3?w=500&h=400&fit=crop" alt="T-34">
+                                <div class="tank-country">🇷🇺 Soviet</div>
+                                <div class="tank-tier">TIER V</div>
+                            </div>
+                            <div class="tank-info">
+                                <div class="tank-name">T-34</div>
+                                <div class="tank-type">Medium Tank • 1940</div>
+                                <div class="tank-stats">
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Firepower</div>
+                                        <div class="stat-bar-fill" style="width: 80%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Armor</div>
+                                        <div class="stat-bar-fill" style="width: 75%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Speed</div>
+                                        <div class="stat-bar-fill" style="width: 85%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Accuracy</div>
+                                        <div class="stat-bar-fill" style="width: 70%;"></div>
+                                    </div>
+                                </div>
+                                <div class="tank-description">
+                                    Revolutionary sloped armor design. Changed tank warfare forever with balanced performance.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tank 3 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tank-card-gaming">
+                            <div class="tank-image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1552536007-e0a00f8a8c51?w=500&h=400&fit=crop" alt="M4 Sherman">
+                                <div class="tank-country">🇺🇸 USA</div>
+                                <div class="tank-tier">TIER IV</div>
+                            </div>
+                            <div class="tank-info">
+                                <div class="tank-name">M4 Sherman</div>
+                                <div class="tank-type">Medium Tank • 1942</div>
+                                <div class="tank-stats">
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Firepower</div>
+                                        <div class="stat-bar-fill" style="width: 70%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Armor</div>
+                                        <div class="stat-bar-fill" style="width: 65%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Speed</div>
+                                        <div class="stat-bar-fill" style="width: 75%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Accuracy</div>
+                                        <div class="stat-bar-fill" style="width: 75%;"></div>
+                                    </div>
+                                </div>
+                                <div class="tank-description">
+                                    The reliable workhorse of the Allied forces. Deployed in massive numbers across all theaters.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tank 4 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tank-card-gaming">
+                            <div class="tank-image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1551524164-0caf9ffd8cda?w=500&h=400&fit=crop" alt="Panther">
+                                <div class="tank-country">🇩🇪 Germany</div>
+                                <div class="tank-tier">TIER VI</div>
+                            </div>
+                            <div class="tank-info">
+                                <div class="tank-name">Panther</div>
+                                <div class="tank-type">Medium Tank • 1943</div>
+                                <div class="tank-stats">
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Firepower</div>
+                                        <div class="stat-bar-fill" style="width: 88%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Armor</div>
+                                        <div class="stat-bar-fill" style="width: 80%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Speed</div>
+                                        <div class="stat-bar-fill" style="width: 72%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Accuracy</div>
+                                        <div class="stat-bar-fill" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                                <div class="tank-description">
+                                    Perfect balance of firepower and protection. German engineering excellence in tank design.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tank 5 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tank-card-gaming">
+                            <div class="tank-image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop" alt="IS-7">
+                                <div class="tank-country">🇷🇺 Soviet</div>
+                                <div class="tank-tier">TIER VII</div>
+                            </div>
+                            <div class="tank-info">
+                                <div class="tank-name">IS-7</div>
+                                <div class="tank-type">Heavy Tank • 1945</div>
+                                <div class="tank-stats">
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Firepower</div>
+                                        <div class="stat-bar-fill" style="width: 98%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Armor</div>
+                                        <div class="stat-bar-fill" style="width: 95%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Speed</div>
+                                        <div class="stat-bar-fill" style="width: 60%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Accuracy</div>
+                                        <div class="stat-bar-fill" style="width: 90%;"></div>
+                                    </div>
+                                </div>
+                                <div class="tank-description">
+                                    Pinnacle of Soviet heavy tank design. One of the most formidable tanks ever created.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tank 6 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tank-card-gaming">
+                            <div class="tank-image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=500&h=400&fit=crop" alt="Leopard 2">
+                                <div class="tank-country">🇩🇪 Germany</div>
+                                <div class="tank-tier">TIER X</div>
+                            </div>
+                            <div class="tank-info">
+                                <div class="tank-name">Leopard 2</div>
+                                <div class="tank-type">Main Battle Tank • 1979</div>
+                                <div class="tank-stats">
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Firepower</div>
+                                        <div class="stat-bar-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Armor</div>
+                                        <div class="stat-bar-fill" style="width: 92%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Speed</div>
+                                        <div class="stat-bar-fill" style="width: 90%;"></div>
+                                    </div>
+                                    <div class="stat-bar">
+                                        <div class="stat-bar-label">Accuracy</div>
+                                        <div class="stat-bar-fill" style="width: 98%;"></div>
+                                    </div>
+                                </div>
+                                <div class="tank-description">
+                                    Cutting-edge modern design. Still the most advanced and capable MBT in the world today.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECH TREE SECTION -->
+        <section class="tech-tree-section" id="tech-tree">
+            <div class="container-lg">
+                <div class="section-header">
+                    <h2 class="section-title">Research Tree</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="tier-label">🇩🇪 German Tank Line</div>
+                        <div class="tech-tree-item">
+                            <div class="tree-item-icon"><i class="fas fa-cube"></i></div>
+                            <div class="tree-item-info">
+                                <div class="tree-item-name">Panzerkampfwagen Tiger</div>
+                                <div class="tree-item-desc">Heavy Tank - Heavy firepower and armor</div>
+                            </div>
+                        </div>
+                        <div class="tech-tree-item">
+                            <div class="tree-item-icon"><i class="fas fa-cube"></i></div>
+                            <div class="tree-item-info">
+                                <div class="tree-item-name">Panther Tank</div>
+                                <div class="tree-item-desc">Medium Tank - Balanced performance</div>
+                            </div>
+                        </div>
+                        <div class="tech-tree-item">
+                            <div class="tree-item-icon"><i class="fas fa-cube"></i></div>
+                            <div class="tree-item-info">
+                                <div class="tree-item-name">Leopard 2</div>
+                                <div class="tree-item-desc">Modern MBT - Superior mobility</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="tier-label">🇷🇺 Soviet Tank Line</div>
+                        <div class="tech-tree-item">
+                            <div class="tree-item-icon"><i class="fas fa-cube"></i></div>
+                            <div class="tree-item-info">
+                                <div class="tree-item-name">T-34 Series</div>
+                                <div class="tree-item-desc">Medium Tank - Excellent sloped armor</div>
+                            </div>
+                        </div>
+                        <div class="tech-tree-item">
+                            <div class="tree-item-icon"><i class="fas fa-cube"></i></div>
+                            <div class="tree-item-info">
+                                <div class="tree-item-name">IS-7 Heavy</div>
+                                <div class="tree-item-desc">Heavy Tank - Devastating firepower</div>
+                            </div>
+                        </div>
+                        <div class="tech-tree-item">
+                            <div class="tree-item-icon"><i class="fas fa-cube"></i></div>
+                            <div class="tree-item-info">
+                                <div class="tree-item-name">T-90 Series</div>
+                                <div class="tree-item-desc">Modern MBT - Advanced systems</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY SECTION -->
+        <section class="gallery-section" id="gallery">
+            <div class="container-lg">
+                <div class="section-header">
+                    <h2 class="section-title">Battle Gallery</h2>
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1570303008042-e39dd90a6fb5?w=500&h=400&fit=crop" alt="Battle 1">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1569163139394-de4798aa62b3?w=500&h=400&fit=crop" alt="Battle 2">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1552536007-e0a00f8a8c51?w=500&h=400&fit=crop" alt="Battle 3">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1551524164-0caf9ffd8cda?w=500&h=400&fit=crop" alt="Battle 4">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop" alt="Battle 5">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=500&h=400&fit=crop" alt="Battle 6">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="contact-section" id="contact">
+            <div class="container-lg">
+                <div class="section-header">
+                    <h2 class="section-title">Join the Battle</h2>
+                    <p style="color: #999; font-size: 1.1rem; margin-top: 1rem;">Get updates on new tanks and battles</p>
+                </div>
+
+                <div class="contact-form">
+                    <form onsubmit="handleFormSubmit(event)">
+                        <input type="text" class="form-control-gaming" placeholder="SOLDIER NAME" required>
+                        <input type="email" class="form-control-gaming" placeholder="BATTLE EMAIL" required>
+                        <textarea class="form-control-gaming" rows="5" placeholder="YOUR MESSAGE HERE" required></textarea>
+                        <button type="submit" class="btn-gaming" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i> TRANSMIT MESSAGE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="gaming-footer">
+            <div class="container-lg">
+                <div class="row">
+                    <div class="col-lg-4 footer-col">
+                        <h5>TANK ARENA</h5>
+                        <p>The ultimate destination for legendary tanks and military history.</p>
+                    </div>
+                    <div class="col-lg-4 footer-col">
+                        <h5>Quick Links</h5>
+                        <a href="#tanks" class="footer-link">Featured Tanks</a>
+                        <a href="#tech-tree" class="footer-link">Tech Tree</a>
+                        <a href="#gallery" class="footer-link">Gallery</a>
+                        <a href="#contact" class="footer-link">Contact</a>
+                    </div>
+                    <div class="col-lg-4 footer-col">
+                        <h5>Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+                            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="#" title="Twitch"><i class="fab fa-twitch"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <hr style="border-color: rgba(0, 212, 255, 0.2); margin: 2rem 0;">
+                <div style="text-align: center; color: #666; font-size: 0.9rem;">
+                    <p>&copy; 2026 TANK ARENA. All rights reserved. 
+                    <br><span style="color: var(--accent-cyan);">⚔️ FOR GLORY, FOR VICTORY ⚔️</span></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('[data-target]');
+            
+            const observerOptions = {
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.getAttribute('data-target'));
+                        const increment = target / 50;
+                        let current = 0;
+
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                entry.target.textContent = target.toLocaleString();
+                                clearInterval(timer);
+                            } else {
+                                entry.target.textContent = Math.floor(current).toLocaleString();
+                            }
+                        }, 30);
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        // Form Submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('🎮 MESSAGE TRANSMITTED! Battle Commander will review your report.');
+            event.target.reset();
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            animateCounters();
+        });
+
+        // Scroll animations for cards
+        const cards = document.querySelectorAll('.tank-card-gaming');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInLeft 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        cards.forEach(card => observer.observe(card));
+    </script>
+</body>
 </html>
 
