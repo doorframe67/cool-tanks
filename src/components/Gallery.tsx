@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const GALLERY_ITEMS = [
   'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1570303008042-e39dd90a6fb5?w=600&h=400&fit=crop',
+  'https://openclipart.org/image/800px/188645',
   'https://images.unsplash.com/photo-1569163139394-de4798aa62b3?w=600&h=400&fit=crop',
   'https://images.unsplash.com/photo-1552536007-e0a00f8a8c51?w=600&h=400&fit=crop',
   'https://images.unsplash.com/photo-1551524164-0caf9ffd8cda?w=600&h=400&fit=crop',
